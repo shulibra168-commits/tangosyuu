@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>単語クイズ ― Iriomote Cat（レベル別＆タイムアタック）</title>
+<title>単語・表現クイズ ― Iriomote Cat</title>
 <style>
   :root{
     --card:#ffffff;
@@ -32,9 +32,8 @@
   header p{font-size:.85rem;opacity:.8;margin-top:6px;}
   .hidden{display:none !important;}
 
-  /* ===== モード切替 ===== */
   .modeToggle{
-    width:100%;max-width:520px;display:flex;gap:8px;
+    width:100%;max-width:560px;display:flex;gap:8px;
     background:rgba(255,255,255,.12);padding:6px;border-radius:16px;margin-bottom:8px;
   }
   .modeToggle button{
@@ -44,12 +43,11 @@
   }
   .modeToggle button.active{background:#fff;color:var(--accent-dark);opacity:1;box-shadow:0 3px 8px rgba(0,0,0,.15);}
   .modeDesc{
-    width:100%;max-width:520px;color:#cfe8e4;font-size:.8rem;
+    width:100%;max-width:560px;color:#cfe8e4;font-size:.8rem;
     text-align:center;margin-bottom:14px;min-height:18px;
   }
 
-  /* ===== レベル選択 ===== */
-  .levelSelect{width:100%;max-width:520px;display:flex;flex-direction:column;gap:13px;}
+  .levelSelect{width:100%;max-width:560px;display:flex;flex-direction:column;gap:13px;}
   .levelSelect h2{color:#fff;text-align:center;font-size:1rem;font-weight:600;opacity:.95;}
   .lvBtn{
     background:var(--card);border:none;border-radius:18px;box-shadow:var(--shadow);
@@ -72,9 +70,8 @@
   .lvMeta .cnt{font-size:.8rem;color:var(--muted);display:block;}
   .lvMeta .best{font-size:.72rem;color:var(--time);font-weight:700;display:block;margin-top:2px;}
 
-  /* ===== クイズ画面 ===== */
   .bar{
-    width:100%;max-width:520px;display:flex;justify-content:space-between;align-items:center;
+    width:100%;max-width:560px;display:flex;justify-content:space-between;align-items:center;
     color:#fff;font-size:.85rem;margin-bottom:10px;padding:0 4px;
   }
   .bar span b{font-size:1.05rem;}
@@ -82,27 +79,28 @@
   .tag1{background:var(--lv1);}.tag2{background:var(--lv2);}.tag3{background:var(--lv3);}.tagall{background:var(--lvall);}
 
   .timerBox{
-    width:100%;max-width:520px;text-align:center;color:#fff;
+    width:100%;max-width:560px;text-align:center;color:#fff;
     font-size:1.6rem;font-weight:800;letter-spacing:.03em;margin-bottom:10px;
     font-variant-numeric:tabular-nums;
   }
   .timerBox small{font-size:.8rem;opacity:.8;font-weight:600;margin-left:6px;}
 
   .progress{
-    width:100%;max-width:520px;height:8px;background:rgba(255,255,255,.2);
+    width:100%;max-width:560px;height:8px;background:rgba(255,255,255,.2);
     border-radius:10px;margin-bottom:16px;overflow:hidden;
   }
   .progress>div{height:100%;background:#7fd1c6;width:0;transition:.3s;}
 
   .card{
-    background:var(--card);width:100%;max-width:520px;border-radius:20px;
+    background:var(--card);width:100%;max-width:560px;border-radius:20px;
     box-shadow:var(--shadow);padding:26px 24px 24px;
   }
   .qcount{font-size:.8rem;color:var(--muted);text-align:center;margin-bottom:14px;letter-spacing:.05em;}
-  .word{text-align:center;margin:6px 0 26px;}
-  .word .en{font-size:2.1rem;font-weight:700;color:var(--accent-dark);letter-spacing:.01em;word-break:break-word;}
+  .word{text-align:center;margin:6px 0 24px;}
+  .word .en{font-size:1.9rem;font-weight:700;color:var(--accent-dark);letter-spacing:.01em;word-break:break-word;line-height:1.35;}
+  .word .en.long{font-size:1.35rem;}
   .word .speak{
-    margin-top:12px;background:none;border:1.5px solid var(--accent);color:var(--accent);
+    margin-top:14px;background:none;border:1.5px solid var(--accent);color:var(--accent);
     border-radius:30px;padding:6px 18px;font-size:.85rem;cursor:pointer;transition:.15s;
   }
   .word .speak:hover{background:var(--accent);color:#fff;}
@@ -110,14 +108,15 @@
   .choices{display:flex;flex-direction:column;gap:12px;}
   .choice{
     background:#f3f6f7;border:2px solid #e2e8ea;border-radius:14px;
-    padding:15px 18px;font-size:1.05rem;text-align:left;cursor:pointer;transition:.12s;color:var(--text);
+    padding:15px 18px;font-size:1.02rem;text-align:left;cursor:pointer;transition:.12s;
+    color:var(--text);line-height:1.4;
   }
   .choice:hover:not(:disabled){border-color:var(--accent);background:#eaf3f2;}
   .choice:disabled{cursor:default;}
   .choice.correct{background:var(--correct);border-color:var(--correct);color:#fff;font-weight:700;}
   .choice.wrong{background:var(--wrong);border-color:var(--wrong);color:#fff;}
 
-  .feedback{text-align:center;margin-top:18px;min-height:26px;font-size:1rem;font-weight:700;}
+  .feedback{text-align:center;margin-top:18px;min-height:26px;font-size:.98rem;font-weight:700;line-height:1.4;}
   .feedback.ok{color:var(--correct);}.feedback.ng{color:var(--wrong);}
 
   .next{
@@ -128,38 +127,28 @@
   .next:disabled{opacity:.4;cursor:default;}
 
   .backBtn{
-    display:block;width:100%;max-width:520px;margin-top:14px;
+    display:block;width:100%;max-width:560px;margin-top:14px;
     background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);
     border-radius:12px;padding:12px;font-size:.9rem;cursor:pointer;transition:.15s;
   }
   .backBtn:hover{background:rgba(255,255,255,.28);}
 
-  /* ===== 結果画面 ===== */
   .result{
-    background:var(--card);width:100%;max-width:520px;border-radius:20px;
+    background:var(--card);width:100%;max-width:560px;border-radius:20px;
     box-shadow:var(--shadow);padding:30px 24px;text-align:center;
   }
   .result h2{font-size:1.3rem;color:var(--accent-dark);margin-bottom:6px;}
   .result .recBig{font-size:3rem;font-weight:800;color:var(--time);margin:14px 0 2px;font-variant-numeric:tabular-nums;}
   .result .recSub{font-size:.85rem;color:var(--muted);margin-bottom:18px;}
-  .result .newbest{
-    background:#fdf1c9;color:#a67c00;font-weight:800;border-radius:12px;
-    padding:10px;margin-bottom:16px;font-size:1rem;
-  }
+  .result .newbest{background:#fdf1c9;color:#a67c00;font-weight:800;border-radius:12px;padding:10px;margin-bottom:16px;font-size:1rem;}
   .result .stats{display:flex;justify-content:center;gap:26px;margin-bottom:22px;}
   .result .stats div b{font-size:1.6rem;color:var(--text);display:block;}
   .result .stats div span{font-size:.78rem;color:var(--muted);}
-  .result .missBox{
-    text-align:left;background:#f7f3f3;border-radius:12px;padding:14px 16px;margin-bottom:20px;
-    max-height:180px;overflow-y:auto;
-  }
+  .result .missBox{text-align:left;background:#f7f3f3;border-radius:12px;padding:14px 16px;margin-bottom:20px;max-height:200px;overflow-y:auto;}
   .result .missBox h3{font-size:.85rem;color:var(--wrong);margin-bottom:8px;}
-  .result .missBox p{font-size:.9rem;margin:4px 0;color:var(--text);}
+  .result .missBox p{font-size:.9rem;margin:6px 0;color:var(--text);line-height:1.4;}
   .result .missBox .none{color:var(--muted);font-size:.85rem;}
-  .result button{
-    width:100%;border:none;border-radius:14px;padding:14px;font-size:1rem;font-weight:700;
-    cursor:pointer;transition:.15s;margin-top:8px;
-  }
+  .result button{width:100%;border:none;border-radius:14px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;transition:.15s;margin-top:8px;}
   .result .again{background:var(--accent);color:#fff;}
   .result .again:hover{background:var(--accent-dark);}
   .result .menu{background:#e6ebec;color:var(--text);}
@@ -170,17 +159,16 @@
 </head>
 <body>
   <header>
-    <h1>単語クイズ 🐾 Iriomote Cat</h1>
+    <h1>単語・表現クイズ 🐾 Iriomote Cat</h1>
     <p>英語の意味を選ぼう</p>
   </header>
 
-  <!-- ===== スタート画面 ===== -->
   <div id="startScreen" style="width:100%;display:flex;flex-direction:column;align-items:center;">
     <div class="modeToggle">
       <button id="modePractice" class="active">🔁 れんしゅう</button>
       <button id="modeTime">⏱ タイムアタック20問</button>
     </div>
-    <div class="modeDesc" id="modeDesc">くり返し出題。間違えた単語ほど何度も出ます。</div>
+    <div class="modeDesc" id="modeDesc">くり返し出題。間違えた問題ほど何度も出ます。</div>
 
     <div class="levelSelect" id="levelSelect">
       <h2>レベルを選んでね</h2>
@@ -191,23 +179,22 @@
       </button>
       <button class="lvBtn lv2" data-level="2">
         <div class="lvBadge">2</div>
-        <div class="lvText"><b>ふつう</b><span>定着させたい重要単語</span></div>
+        <div class="lvText"><b>ふつう</b><span>本文のキーワード（重要単語）</span></div>
         <div class="lvMeta"><span class="cnt" id="c2"></span><span class="best" id="b2"></span></div>
       </button>
       <button class="lvBtn lv3" data-level="3">
         <div class="lvBadge">3</div>
-        <div class="lvText"><b>むずかしい</b><span>絶滅・生態系・環境の専門語</span></div>
+        <div class="lvText"><b>むずかしい</b><span>本文中のフレーズ・熟語・英文</span></div>
         <div class="lvMeta"><span class="cnt" id="c3"></span><span class="best" id="b3"></span></div>
       </button>
       <button class="lvBtn lvall" data-level="all">
         <div class="lvBadge">ALL</div>
-        <div class="lvText"><b>全部まとめて</b><span>すべてのレベルからrandom</span></div>
+        <div class="lvText"><b>全部まとめて</b><span>すべてのレベルからランダム</span></div>
         <div class="lvMeta"><span class="cnt" id="call"></span><span class="best" id="ball"></span></div>
       </button>
     </div>
   </div>
 
-  <!-- ===== クイズ画面 ===== -->
   <div class="hidden" id="quizArea" style="width:100%;display:flex;flex-direction:column;align-items:center;">
     <div class="bar">
       <span class="levelTag" id="levelTag">Level</span>
@@ -215,11 +202,8 @@
       <span>連続 <b id="streak">0</b> 🔥</span>
       <span id="rateWrap">正答率 <b id="rate">--</b>%</span>
     </div>
-
     <div class="timerBox hidden" id="timerBox">⏱ <span id="timerDisplay">0.0</span><small>秒</small></div>
-
     <div class="progress"><div id="progressBar"></div></div>
-
     <div class="card">
       <div class="qcount" id="qcount">第 1 問</div>
       <div class="word">
@@ -233,7 +217,6 @@
     <button class="backBtn" id="backBtn">◀ メニューにもどる</button>
   </div>
 
-  <!-- ===== 結果画面（タイムアタック） ===== -->
   <div class="hidden" id="resultScreen" style="width:100%;display:flex;flex-direction:column;align-items:center;">
     <div class="result">
       <h2>⏱ タイムアタック結果</h2>
@@ -250,159 +233,122 @@
     </div>
   </div>
 
-  <footer>Discover Nature ― English Word Quiz</footer>
+  <footer>Discover Nature ― English Word &amp; Phrase Quiz</footer>
 
 <script>
 /* ============================================================
-   単語データ  level:1=やさしい / 2=ふつう / 3=むずかしい
-   Level3 は本文＋テーマ（絶滅・生態系・環境保護）に拡張
+   問題データ
+   level 1 = やさしい単語 / 2 = 重要単語 / 3 = 本文中のフレーズ・熟語・英文
    ============================================================ */
 const WORDS = [
-  /* --- Level 1：基礎語 --- */
-  {en:"animal",        ja:"動物",                 level:1},
-  {en:"island",        ja:"島",                   level:1},
-  {en:"small",         ja:"小さい",               level:1},
-  {en:"reason",        ja:"理由",                 level:1},
-  {en:"already",       ja:"すでに",               level:1},
-  {en:"about",         ja:"およそ、約",           level:1},
-  {en:"now",           ja:"今",                   level:1},
-  {en:"live",          ja:"住む、生きる",         level:1},
-  {en:"another",       ja:"もう一つの、別の",     level:1},
-  {en:"important",     ja:"重要な",               level:1},
-  {en:"each other",    ja:"おたがい",             level:1},
-  {en:"part of",       ja:"〜の一部",             level:1},
+  /* --- Level 1：基礎の単語 --- */
+  {en:"animal",     ja:"動物",           level:1},
+  {en:"island",     ja:"島",             level:1},
+  {en:"small",      ja:"小さい",         level:1},
+  {en:"reason",     ja:"理由",           level:1},
+  {en:"already",    ja:"すでに",         level:1},
+  {en:"about",      ja:"およそ、約",     level:1},
+  {en:"now",        ja:"今",             level:1},
+  {en:"live",       ja:"住む、生きる",   level:1},
+  {en:"another",    ja:"もう一つの、別の", level:1},
+  {en:"important",  ja:"重要な",         level:1},
 
-  /* --- Level 2：定着させたい重要語 --- */
-  {en:"native",        ja:"原産の、生まれつきの", level:2},
-  {en:"population",    ja:"個体数、人口",         level:2},
-  {en:"reason for",    ja:"〜の理由",             level:2},
-  {en:"decrease",      ja:"減少",                 level:2},
-  {en:"research",      ja:"調査、研究",           level:2},
-  {en:"local",         ja:"地元の",               level:2},
-  {en:"citizen",       ja:"市民",                 level:2},
-  {en:"protect",       ja:"守る、保護する",       level:2},
-  {en:"role",          ja:"役割",                 level:2},
-  {en:"survive",       ja:"生き残る",             level:2},
-  {en:"in danger of",  ja:"〜の危機にある",       level:2},
-  {en:"be related to", ja:"〜と関係している",     level:2},
+  /* --- Level 2：本文のキーワード（重要単語・短いフレーズ） --- */
+  {en:"native",             ja:"原産の、生まれつきの", level:2},
+  {en:"population",         ja:"個体数、人口",       level:2},
+  {en:"research",           ja:"調査、研究",         level:2},
+  {en:"local",              ja:"地元の",             level:2},
+  {en:"citizen",            ja:"市民",               level:2},
+  {en:"protect",            ja:"守る、保護する",     level:2},
+  {en:"role",               ja:"役割",               level:2},
+  {en:"survive",            ja:"生き残る",           level:2},
+  {en:"extinction",         ja:"絶滅",               level:2},
+  {en:"habitats",           ja:"生息地（複数）",     level:2},
+  {en:"ecosystem",          ja:"生態系",             level:2},
+  {en:"categorize",         ja:"分類する",           level:2},
+  {en:"a part of",          ja:"〜の一部",           level:2},
+  {en:"critically endangered", ja:"深刻な絶滅の危機にある", level:2},
+  {en:"its decrease",       ja:"その減少",           level:2},
+  {en:"in danger of",       ja:"〜の危機にある",     level:2},
+  {en:"be related to",      ja:"〜と関係している",   level:2},
 
-  /* --- Level 3：専門語・熟語（本文＋テーマ拡張） --- */
-  {en:"extinction",            ja:"絶滅",                     level:3},
-  {en:"extinct",               ja:"絶滅した",                 level:3},
-  {en:"endangered",            ja:"絶滅の危機にある",         level:3},
-  {en:"endangered species",    ja:"絶滅危惧種",               level:3},
-  {en:"critically endangered", ja:"深刻な絶滅危機にある",     level:3},
-  {en:"threatened",            ja:"絶滅の恐れがある",         level:3},
-  {en:"vulnerable",            ja:"危急な、傷つきやすい",     level:3},
-  {en:"habitat",               ja:"生息地",                   level:3},
-  {en:"logging",               ja:"伐採（ばっさい）",         level:3},
-  {en:"deforestation",         ja:"森林破壊",                 level:3},
-  {en:"ecosystem",             ja:"生態系",                   level:3},
-  {en:"biodiversity",          ja:"生物多様性",               level:3},
-  {en:"species",               ja:"種（しゅ）",               level:3},
-  {en:"native species",        ja:"在来種",                   level:3},
-  {en:"invasive species",      ja:"外来種、侵略的外来種",     level:3},
-  {en:"wildlife",              ja:"野生生物",                 level:3},
-  {en:"conservation",          ja:"保護、保全",               level:3},
-  {en:"preserve",              ja:"保存する、保護する",       level:3},
-  {en:"reserve",               ja:"自然保護区",               level:3},
-  {en:"sustainable",           ja:"持続可能な",               level:3},
-  {en:"environment",           ja:"環境",                     level:3},
-  {en:"pollution",             ja:"汚染",                     level:3},
-  {en:"climate change",        ja:"気候変動",                 level:3},
-  {en:"global warming",        ja:"地球温暖化",               level:3},
-  {en:"poaching",              ja:"密猟（みつりょう）",       level:3},
-  {en:"inhabit",               ja:"生息する、住む",           level:3},
-  {en:"reproduce",             ja:"繁殖する",                 level:3},
-  {en:"coexist",               ja:"共存する",                 level:3},
-  {en:"awareness",             ja:"意識、認識",               level:3},
-  {en:"balance",               ja:"均衡、バランス",           level:3},
-  {en:"categorize",            ja:"分類する",                 level:3},
-  {en:"traffic accident",      ja:"交通事故",                 level:3},
-  {en:"take action",           ja:"行動を起こす",             level:3},
-  {en:"human being",           ja:"人間",                     level:3},
-  {en:"IUCN (organization)",   ja:"国際自然保護連合",         level:3}
+  /* --- Level 3：本文中のフレーズ・熟語・英文 --- */
+  {en:"be in danger of extinction", ja:"絶滅の危機にある",           level:3},
+  {en:"one such animal",            ja:"そのような動物の一つ",       level:3},
+  {en:"be native to ~",            ja:"〜の原産である、〜に固有の", level:3},
+  {en:"one of the reasons",         ja:"理由の一つ",                 level:3},
+  {en:"another reason for ~",      ja:"〜のもう一つの理由",         level:3},
+  {en:"be categorized as ~",       ja:"〜に分類される",             level:3},
+  {en:"its own role",               ja:"それ自身の役割",             level:3},
+  {en:"role in the ecosystem",      ja:"生態系の中での役割",         level:3},
+  {en:"take action",                ja:"行動を起こす",               level:3},
+  {en:"Local citizens have been working to protect the cats.",
+                                    ja:"地元の市民たちはネコを守る活動を続けている。（現在完了進行形）", level:3},
+  {en:"Each animal has its own role in the ecosystem.",
+                                    ja:"それぞれの動物は生態系の中で独自の役割を持っている。", level:3},
+  {en:"We are all related to each other.",
+                                    ja:"私たちはみな、おたがいに関係し合っている。", level:3},
+  {en:"It is important for us to take action now.",
+                                    ja:"今、私たちが行動を起こすことが大切だ。（It is … for – to 構文）", level:3},
+  {en:"Let's help these animals survive.",
+                                    ja:"これらの動物が生き残るのを助けよう。（help＋目的語＋動詞の原形）", level:3}
 ];
 
 const LEVEL_NAMES = {1:"やさしい", 2:"ふつう", 3:"むずかしい", all:"全部まとめて"};
-const TOTAL_Q = 20;          // タイムアタックの問題数
-const WRONG_PENALTY = 3;     // ミス1回あたりの加算秒
-const AUTO_DELAY = 850;      // タイムアタックの自動送り(ms)
+const TOTAL_Q = 20;
+const WRONG_PENALTY = 3;
+const AUTO_DELAY = 1100;   // 英文を読む時間をやや長めに
 
-/* ============================================================
-   状態
-   ============================================================ */
-let mode = "practice";       // "practice" | "time"
-let pool = [];
-let stats = {answered:0, correct:0, streak:0};
-let currentWord = null, lastWord = null, currentLevel = null;
-let taIndex = 0, taWrong = 0, taMissList = [], taStart = 0, timerId = null;
-
+let mode="practice", pool=[], stats={answered:0,correct:0,streak:0};
+let currentWord=null, lastWord=null, currentLevel=null, recentQueue=[];
+let taIndex=0, taWrong=0, taMissList=[], taStart=0, timerId=null;
 const $ = id => document.getElementById(id);
 
-/* ---- localStorage（ベスト記録）ラッパ ---- */
-function bestKey(level){ return "iriomote_best_" + mode + "_" + level; }
-function getBest(level){
-  try{ const v = localStorage.getItem("iriomote_best_time_"+level); return v?parseFloat(v):null; }catch(e){ return null; }
-}
-function setBest(level,val){
-  try{ localStorage.setItem("iriomote_best_time_"+level, String(val)); }catch(e){}
-}
+function getBest(level){ try{const v=localStorage.getItem("iriomote_best_time_"+level);return v?parseFloat(v):null;}catch(e){return null;} }
+function setBest(level,val){ try{localStorage.setItem("iriomote_best_time_"+level,String(val));}catch(e){} }
 
-/* ---- 単語数・ベスト表示 ---- */
 function refreshMenu(){
-  $("c1").textContent   = WORDS.filter(w=>w.level===1).length + "語";
-  $("c2").textContent   = WORDS.filter(w=>w.level===2).length + "語";
-  $("c3").textContent   = WORDS.filter(w=>w.level===3).length + "語";
-  $("call").textContent = WORDS.length + "語";
+  $("c1").textContent   = WORDS.filter(w=>w.level===1).length + "問";
+  $("c2").textContent   = WORDS.filter(w=>w.level===2).length + "問";
+  $("c3").textContent   = WORDS.filter(w=>w.level===3).length + "問";
+  $("call").textContent = WORDS.length + "問";
   [["1","b1"],["2","b2"],["3","b3"],["all","ball"]].forEach(([lv,el])=>{
-    const best = getBest(lv);
-    $(el).textContent = (mode==="time" && best!=null) ? ("⏱ベスト " + best.toFixed(1) + "秒") : "";
+    const best=getBest(lv);
+    $(el).textContent = (mode==="time"&&best!=null) ? ("⏱ベスト "+best.toFixed(1)+"秒") : "";
   });
 }
 
-/* ============================================================
-   モード切替
-   ============================================================ */
-$("modePractice").onclick = ()=>{
+$("modePractice").onclick=()=>{
   mode="practice";
-  $("modePractice").classList.add("active"); $("modeTime").classList.remove("active");
-  $("modeDesc").textContent = "くり返し出題。間違えた単語ほど何度も出ます。";
+  $("modePractice").classList.add("active");$("modeTime").classList.remove("active");
+  $("modeDesc").textContent="くり返し出題。間違えた問題ほど何度も出ます。";
   refreshMenu();
 };
-$("modeTime").onclick = ()=>{
+$("modeTime").onclick=()=>{
   mode="time";
-  $("modeTime").classList.add("active"); $("modePractice").classList.remove("active");
-  $("modeDesc").textContent = "20問を連続出題してタイムを計測！ミス1回で +"+WRONG_PENALTY+"秒。";
+  $("modeTime").classList.add("active");$("modePractice").classList.remove("active");
+  $("modeDesc").textContent="20問を連続出題してタイムを計測！ミス1回で +"+WRONG_PENALTY+"秒。";
   refreshMenu();
 };
 
-/* ============================================================
-   スタート
-   ============================================================ */
-document.querySelectorAll(".lvBtn").forEach(btn=>{
-  btn.onclick = ()=> startQuiz(btn.dataset.level);
-});
+document.querySelectorAll(".lvBtn").forEach(btn=>{ btn.onclick=()=>startQuiz(btn.dataset.level); });
 
 function startQuiz(level){
-  currentLevel = level;
-  const selected = (level==="all") ? WORDS : WORDS.filter(w=>w.level===Number(level));
-  pool = selected.map(w=>({...w, weight:3}));
-  stats = {answered:0, correct:0, streak:0};
-  lastWord = null;
-  taIndex = 0; taWrong = 0; taMissList = [];
+  currentLevel=level;
+  const selected=(level==="all")?WORDS:WORDS.filter(w=>w.level===Number(level));
+  pool=selected.map(w=>({...w,weight:1}));
+  stats={answered:0,correct:0,streak:0}; lastWord=null; recentQueue=[];
+  taIndex=0; taWrong=0; taMissList=[];
 
-  const tag = $("levelTag");
-  tag.textContent = "Lv." + (level==="all"?"ALL":level) + "　" + LEVEL_NAMES[level];
-  tag.className = "levelTag " + (level==="all"?"tagall":"tag"+level);
+  const tag=$("levelTag");
+  tag.textContent="Lv."+(level==="all"?"ALL":level)+"　"+LEVEL_NAMES[level];
+  tag.className="levelTag "+(level==="all"?"tagall":"tag"+level);
 
-  // モードによる表示切替
   if(mode==="time"){
     $("timerBox").classList.remove("hidden");
     $("rateWrap").classList.add("hidden");
     $("nextBtn").classList.add("hidden");
-    taStart = performance.now();
-    startTimer();
+    taStart=performance.now(); startTimer();
   }else{
     $("timerBox").classList.add("hidden");
     $("rateWrap").classList.remove("hidden");
@@ -412,76 +358,64 @@ function startQuiz(level){
   $("startScreen").classList.add("hidden");
   $("resultScreen").classList.add("hidden");
   $("quizArea").classList.remove("hidden");
-  updateBar();
-  render();
+  updateBar(); render();
 }
 
-/* ============================================================
-   タイマー
-   ============================================================ */
-function startTimer(){
-  stopTimer();
-  timerId = setInterval(()=>{
-    const t = (performance.now()-taStart)/1000;
-    $("timerDisplay").textContent = t.toFixed(1);
-  },100);
-}
-function stopTimer(){ if(timerId){clearInterval(timerId); timerId=null;} }
+function startTimer(){ stopTimer(); timerId=setInterval(()=>{ $("timerDisplay").textContent=((performance.now()-taStart)/1000).toFixed(1); },100); }
+function stopTimer(){ if(timerId){clearInterval(timerId);timerId=null;} }
 
-/* ============================================================
-   出題ロジック
-   ============================================================ */
 function pickWord(){
-  let cand = pool.filter(w => w.en !== (lastWord && lastWord.en));
-  if(cand.length===0) cand = pool;
+  // 直近に出た問題は「履歴ウィンドウ」の間は出さない（同じのがすぐ戻るのを防ぐ）
+  const windowSize = Math.min(pool.length-1, Math.max(3, Math.floor(pool.length*0.6)));
+  let cand = pool.filter(w=>!recentQueue.includes(w.en));
+  if(cand.length===0) cand = pool.slice();
   const total = cand.reduce((s,w)=>s+w.weight,0);
-  let r = Math.random()*total;
-  for(const w of cand){ r-=w.weight; if(r<=0) return w; }
-  return cand[cand.length-1];
-}
-function makeChoices(word){
-  const others = WORDS.filter(w=>w.ja!==word.ja);
-  shuffle(others);
-  return shuffle([word.ja, others[0].ja, others[1].ja, others[2].ja]);
-}
-function shuffle(a){
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
-  return a;
+  let r=Math.random()*total, chosen=cand[cand.length-1];
+  for(const w of cand){ r-=w.weight; if(r<=0){ chosen=w; break; } }
+  recentQueue.push(chosen.en);
+  if(recentQueue.length>windowSize) recentQueue.shift();
+  return chosen;
 }
 
-/* ============================================================
-   発音（Web Speech API・APIキー不要）
-   ============================================================ */
+/* ダミー選択肢は「同じレベル」から優先的に選ぶ（英文には英文のダミー） */
+function makeChoices(word){
+  let same = WORDS.filter(w=>w.level===word.level && w.ja!==word.ja);
+  shuffle(same);
+  let picks = same.slice(0,3);
+  if(picks.length<3){
+    let extra = WORDS.filter(w=>w.ja!==word.ja && !picks.includes(w));
+    shuffle(extra);
+    picks = picks.concat(extra.slice(0,3-picks.length));
+  }
+  return shuffle([word.ja, ...picks.map(w=>w.ja)]);
+}
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
 let voices=[];
-function loadVoices(){ voices = window.speechSynthesis.getVoices(); }
-if('speechSynthesis' in window){ loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices; }
+function loadVoices(){ voices=window.speechSynthesis.getVoices(); }
+if('speechSynthesis' in window){ loadVoices(); window.speechSynthesis.onvoiceschanged=loadVoices; }
 function speak(text){
   if(!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
-  const clean = text.replace(/\s*\(.*?\)/g,"");
-  const u = new SpeechSynthesisUtterance(clean);
+  const clean=text.replace(/~/g,"").replace(/\s*\(.*?\)/g,"");
+  const u=new SpeechSynthesisUtterance(clean);
   u.lang="en-US"; u.rate=0.9;
-  const v = voices.find(v=>/en-US/i.test(v.lang)&&/Google|Samantha|Natural/i.test(v.name))
-         || voices.find(v=>/en-US/i.test(v.lang))
-         || voices.find(v=>/^en/i.test(v.lang));
+  const v=voices.find(v=>/en-US/i.test(v.lang)&&/Google|Samantha|Natural/i.test(v.name))
+       ||voices.find(v=>/en-US/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang));
   if(v) u.voice=v;
   window.speechSynthesis.speak(u);
 }
 
-/* ============================================================
-   描画
-   ============================================================ */
 function render(){
-  currentWord = pickWord();
-  $("wordEn").textContent = currentWord.en;
-  if(mode==="time"){
-    $("qcount").textContent = (taIndex+1) + " / " + TOTAL_Q + " 問";
-  }else{
-    $("qcount").textContent = "第 " + (stats.answered+1) + " 問";
-  }
+  currentWord=pickWord();
+  const enEl=$("wordEn");
+  enEl.textContent=currentWord.en;
+  enEl.classList.toggle("long", currentWord.en.length>28);   // 長い英文は小さめに
+  $("qcount").textContent = (mode==="time") ? ((taIndex+1)+" / "+TOTAL_Q+" 問") : ("第 "+(stats.answered+1)+" 問");
 
-  const choices = makeChoices(currentWord);
-  const box = $("choices"); box.innerHTML="";
+  const choices=makeChoices(currentWord);
+  const box=$("choices"); box.innerHTML="";
   choices.forEach(text=>{
     const btn=document.createElement("button");
     btn.className="choice"; btn.textContent=text;
@@ -493,113 +427,85 @@ function render(){
   speak(currentWord.en);
 }
 
-function answer(btn, chosen){
+function answer(btn,chosen){
   document.querySelectorAll(".choice").forEach(b=>b.disabled=true);
   stats.answered++;
-  const ok = (chosen===currentWord.ja);
-  const item = pool.find(w=>w.en===currentWord.en);
+  const ok=(chosen===currentWord.ja);
+  const item=pool.find(w=>w.en===currentWord.en);
 
   if(ok){
     btn.classList.add("correct");
     stats.correct++; stats.streak++;
-    $("feedback").textContent = "⭕ 正解！  " + currentWord.en + " = " + currentWord.ja;
+    $("feedback").textContent="⭕ 正解！";
     $("feedback").className="feedback ok";
-    if(item) item.weight = Math.max(1, item.weight-1);
+    if(item) item.weight=1;
   }else{
     btn.classList.add("wrong");
     stats.streak=0;
-    $("feedback").textContent = "❌ 正解は「" + currentWord.ja + "」";
+    $("feedback").textContent="❌ 正解は「"+currentWord.ja+"」";
     $("feedback").className="feedback ng";
-    if(item) item.weight += 2;
+    if(item) item.weight=Math.min(3,item.weight+1);
     document.querySelectorAll(".choice").forEach(b=>{ if(b.textContent===currentWord.ja) b.classList.add("correct"); });
   }
-  updateBar();
-  lastWord = currentWord;
+  updateBar(); lastWord=currentWord;
 
   if(mode==="time"){
     if(!ok){ taWrong++; taMissList.push(currentWord); }
     taIndex++;
-    setTimeout(()=>{
-      if(taIndex>=TOTAL_Q) finishTimeAttack();
-      else render();
-    }, AUTO_DELAY);
+    setTimeout(()=>{ if(taIndex>=TOTAL_Q) finishTimeAttack(); else render(); }, AUTO_DELAY);
   }else{
     $("nextBtn").disabled=false;
   }
 }
 
 function updateBar(){
-  $("correctCount").textContent = stats.correct;
-  $("streak").textContent = stats.streak;
+  $("correctCount").textContent=stats.correct;
+  $("streak").textContent=stats.streak;
   if(mode==="time"){
-    $("progressBar").style.width = (taIndex/TOTAL_Q*100) + "%";
+    $("progressBar").style.width=(taIndex/TOTAL_Q*100)+"%";
   }else{
-    const rate = stats.answered? Math.round(stats.correct/stats.answered*100):0;
-    $("rate").textContent = stats.answered? rate : "--";
-    $("progressBar").style.width = Math.min(100,rate) + "%";
+    const rate=stats.answered?Math.round(stats.correct/stats.answered*100):0;
+    $("rate").textContent=stats.answered?rate:"--";
+    $("progressBar").style.width=Math.min(100,rate)+"%";
   }
 }
 
-/* ============================================================
-   タイムアタック終了 → 結果
-   ============================================================ */
 function finishTimeAttack(){
-  stopTimer();
-  window.speechSynthesis && window.speechSynthesis.cancel();
-  const elapsed = (performance.now()-taStart)/1000;
-  const record = elapsed + taWrong*WRONG_PENALTY;
-  const correct = TOTAL_Q - taWrong;
-  const rate = Math.round(correct/TOTAL_Q*100);
+  stopTimer(); window.speechSynthesis&&window.speechSynthesis.cancel();
+  const elapsed=(performance.now()-taStart)/1000;
+  const record=elapsed+taWrong*WRONG_PENALTY;
+  const correct=TOTAL_Q-taWrong;
+  const rate=Math.round(correct/TOTAL_Q*100);
 
-  $("recBig").textContent = record.toFixed(1) + "秒";
-  $("recSub").textContent = "クリアタイム " + elapsed.toFixed(1) + "秒　＋　ミス" + taWrong + "回 ×" + WRONG_PENALTY + "秒";
-  $("rCorrect").textContent = correct;
-  $("rRate").textContent = rate;
+  $("recBig").textContent=record.toFixed(1)+"秒";
+  $("recSub").textContent="クリアタイム "+elapsed.toFixed(1)+"秒　＋　ミス"+taWrong+"回 ×"+WRONG_PENALTY+"秒";
+  $("rCorrect").textContent=correct; $("rRate").textContent=rate;
 
-  // ベスト更新判定
-  const prev = getBest(currentLevel);
-  if(prev==null || record < prev){
-    setBest(currentLevel, record);
-    $("newbest").classList.remove("hidden");
-  }else{
-    $("newbest").classList.add("hidden");
-  }
+  const prev=getBest(currentLevel);
+  if(prev==null||record<prev){ setBest(currentLevel,record); $("newbest").classList.remove("hidden"); }
+  else{ $("newbest").classList.add("hidden"); }
 
-  // 間違えた単語一覧
-  const mb = $("missBox");
+  const mb=$("missBox");
   if(taMissList.length===0){
-    mb.innerHTML = '<h3>まちがえた単語</h3><p class="none">パーフェクト！ 全問正解 🎉</p>';
+    mb.innerHTML='<h3>まちがえた問題</h3><p class="none">パーフェクト！ 全問正解 🎉</p>';
   }else{
-    let html = '<h3>まちがえた単語（' + taMissList.length + '語）</h3>';
-    taMissList.forEach(w=>{ html += "<p>・<b>"+w.en+"</b> … "+w.ja+"</p>"; });
-    mb.innerHTML = html;
+    let html='<h3>まちがえた問題（'+taMissList.length+'）</h3>';
+    taMissList.forEach(w=>{ html+="<p>・<b>"+w.en+"</b><br>　… "+w.ja+"</p>"; });
+    mb.innerHTML=html;
   }
-
   $("quizArea").classList.add("hidden");
   $("resultScreen").classList.remove("hidden");
 }
 
-/* ============================================================
-   ナビゲーション
-   ============================================================ */
-$("nextBtn").onclick = render;
-$("speakBtn").onclick = ()=> speak(currentWord.en);
-
-$("backBtn").onclick = ()=>{
-  stopTimer();
-  window.speechSynthesis && window.speechSynthesis.cancel();
-  $("quizArea").classList.add("hidden");
-  $("startScreen").classList.remove("hidden");
-  refreshMenu();
+$("nextBtn").onclick=render;
+$("speakBtn").onclick=()=>speak(currentWord.en);
+$("backBtn").onclick=()=>{
+  stopTimer(); window.speechSynthesis&&window.speechSynthesis.cancel();
+  $("quizArea").classList.add("hidden"); $("startScreen").classList.remove("hidden"); refreshMenu();
 };
-$("againBtn").onclick = ()=> startQuiz(currentLevel);
-$("toMenuBtn").onclick = ()=>{
-  $("resultScreen").classList.add("hidden");
-  $("startScreen").classList.remove("hidden");
-  refreshMenu();
-};
+$("againBtn").onclick=()=>startQuiz(currentLevel);
+$("toMenuBtn").onclick=()=>{ $("resultScreen").classList.add("hidden"); $("startScreen").classList.remove("hidden"); refreshMenu(); };
 
-/* 起動 */
 refreshMenu();
 </script>
 </body>
